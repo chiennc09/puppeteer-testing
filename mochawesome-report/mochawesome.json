@@ -1,0 +1,219 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 3,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-06-08T05:05:36.875Z",
+    "end": "2025-06-08T05:06:23.549Z",
+    "duration": 46674,
+    "testsRegistered": 4,
+    "passPercent": 75,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "3f1005d3-6fd1-4a25-881a-6d0024649e6b",
+      "title": "",
+      "fullFile": "E:\\Working\\Testing\\puppeteer-testing\\tests\\login.test.js",
+      "file": "\\tests\\login.test.js",
+      "beforeHooks": [
+        {
+          "title": "\"before all\" hook in \"{root}\"",
+          "fullTitle": "\"before all\" hook in \"{root}\"",
+          "timedOut": false,
+          "duration": 10,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "const chai = await import('chai');\nexpect = chai.expect;",
+          "err": {},
+          "uuid": "9f9ee8d1-29a6-460d-8e7d-6ed4a8ea6635",
+          "parentUUID": "3f1005d3-6fd1-4a25-881a-6d0024649e6b",
+          "isHook": true,
+          "skipped": false
+        }
+      ],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+          "title": "Login Functionality",
+          "fullFile": "E:\\Working\\Testing\\puppeteer-testing\\tests\\login.test.js",
+          "file": "\\tests\\login.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"Login Functionality\"",
+              "fullTitle": "Login Functionality \"before all\" hook in \"Login Functionality\"",
+              "timedOut": false,
+              "duration": 592,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "browser = await puppeteer.launch({\nheadless: false, // Tắt headless để thấy trình duyệt\nslowMo: 10, // Làm chậm thao tác 100ms để dễ quan sát\nargs: ['--start-maximized'], // Mở trình duyệt ở chế độ toàn màn hình\n  });\npage = await browser.newPage();\nawait page.setViewport({ width: 1280, height: 720 });",
+              "err": {},
+              "uuid": "c9d83edf-6a7f-4dc2-b59c-53f2227e60fe",
+              "parentUUID": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \"Login Functionality\"",
+              "fullTitle": "Login Functionality \"after all\" hook in \"Login Functionality\"",
+              "timedOut": false,
+              "duration": 365,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await browser.close();",
+              "err": {},
+              "uuid": "f74a5013-6a18-458e-b9f1-a6cd0ce4c9c8",
+              "parentUUID": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "Login with invalid email",
+              "fullTitle": "Login Functionality Login with invalid email",
+              "timedOut": false,
+              "duration": 12266,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await page.goto(config.baseUrl + '/tai-khoan');\nawait typeText(page, '#username', email);\nawait typeText(page, '#password', password);\nawait clickElement(page, 'button[name=\"login\"]');\nif (expectSuccess) {\n  await waitForElement(page, '.woocommerce-MyAccount-content');\n  const welcomeText = await page.$eval('.woocommerce-MyAccount-content', el => el.textContent);\n  expect(welcomeText).to.include(expectedText);\n} else {\n  await waitForElement(page, '.woocommerce-notices-wrapper');\n  const errorText = await page.$eval('.woocommerce-notices-wrapper', el => el.textContent);\n  expect(errorText).to.include(expectedError);\n}",
+              "err": {
+                "message": "AssertionError: expected '\\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tL…' to include 'Hãy nhập đúng định dạng tên người dùng'",
+                "estack": "AssertionError: expected '\\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tL…' to include 'Hãy nhập đúng định dạng tên người dùng'\n    at Context.<anonymous> (tests\\login.test.js:45:30)",
+                "diff": null
+              },
+              "uuid": "8f2f98b6-2346-4834-ad27-bc9d4d5e285e",
+              "parentUUID": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Login with empty email",
+              "fullTitle": "Login Functionality Login with empty email",
+              "timedOut": false,
+              "duration": 10118,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await page.goto(config.baseUrl + '/tai-khoan');\nawait typeText(page, '#username', email);\nawait typeText(page, '#password', password);\nawait clickElement(page, 'button[name=\"login\"]');\nif (expectSuccess) {\n  await waitForElement(page, '.woocommerce-MyAccount-content');\n  const welcomeText = await page.$eval('.woocommerce-MyAccount-content', el => el.textContent);\n  expect(welcomeText).to.include(expectedText);\n} else {\n  await waitForElement(page, '.woocommerce-notices-wrapper');\n  const errorText = await page.$eval('.woocommerce-notices-wrapper', el => el.textContent);\n  expect(errorText).to.include(expectedError);\n}",
+              "err": {},
+              "uuid": "c4ed98da-66ec-424d-b5bb-32900b57da15",
+              "parentUUID": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Login with empty password",
+              "fullTitle": "Login Functionality Login with empty password",
+              "timedOut": false,
+              "duration": 10367,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await page.goto(config.baseUrl + '/tai-khoan');\nawait typeText(page, '#username', email);\nawait typeText(page, '#password', password);\nawait clickElement(page, 'button[name=\"login\"]');\nif (expectSuccess) {\n  await waitForElement(page, '.woocommerce-MyAccount-content');\n  const welcomeText = await page.$eval('.woocommerce-MyAccount-content', el => el.textContent);\n  expect(welcomeText).to.include(expectedText);\n} else {\n  await waitForElement(page, '.woocommerce-notices-wrapper');\n  const errorText = await page.$eval('.woocommerce-notices-wrapper', el => el.textContent);\n  expect(errorText).to.include(expectedError);\n}",
+              "err": {},
+              "uuid": "7c92f511-a94b-49c3-8bfc-ec1d62604ee4",
+              "parentUUID": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Login with valid credentials",
+              "fullTitle": "Login Functionality Login with valid credentials",
+              "timedOut": false,
+              "duration": 12944,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await page.goto(config.baseUrl + '/tai-khoan');\nawait typeText(page, '#username', email);\nawait typeText(page, '#password', password);\nawait clickElement(page, 'button[name=\"login\"]');\nif (expectSuccess) {\n  await waitForElement(page, '.woocommerce-MyAccount-content');\n  const welcomeText = await page.$eval('.woocommerce-MyAccount-content', el => el.textContent);\n  expect(welcomeText).to.include(expectedText);\n} else {\n  await waitForElement(page, '.woocommerce-notices-wrapper');\n  const errorText = await page.$eval('.woocommerce-notices-wrapper', el => el.textContent);\n  expect(errorText).to.include(expectedError);\n}",
+              "err": {},
+              "uuid": "a86eada8-901e-4b6e-afef-4dc5086827e9",
+              "parentUUID": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "c4ed98da-66ec-424d-b5bb-32900b57da15",
+            "7c92f511-a94b-49c3-8bfc-ec1d62604ee4",
+            "a86eada8-901e-4b6e-afef-4dc5086827e9"
+          ],
+          "failures": [
+            "8f2f98b6-2346-4834-ad27-bc9d4d5e285e"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 45695,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 60000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "11.5.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}
