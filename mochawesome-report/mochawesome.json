@@ -1,15 +1,15 @@
 {
   "stats": {
-    "suites": 1,
-    "tests": 4,
+    "suites": 2,
+    "tests": 11,
     "passes": 3,
     "pending": 0,
-    "failures": 1,
-    "start": "2025-06-08T05:05:36.875Z",
-    "end": "2025-06-08T05:06:23.549Z",
-    "duration": 46674,
-    "testsRegistered": 4,
-    "passPercent": 75,
+    "failures": 8,
+    "start": "2025-06-09T02:12:33.206Z",
+    "end": "2025-06-09T02:16:12.280Z",
+    "duration": 219074,
+    "testsRegistered": 11,
+    "passPercent": 27.27272727272727,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,10 +18,10 @@
   },
   "results": [
     {
-      "uuid": "3f1005d3-6fd1-4a25-881a-6d0024649e6b",
+      "uuid": "db4dfcf9-e769-4992-9db6-db807f5a3bdd",
       "title": "",
-      "fullFile": "E:\\Working\\Testing\\puppeteer-testing\\tests\\login.test.js",
-      "file": "\\tests\\login.test.js",
+      "fullFile": "",
+      "file": "",
       "beforeHooks": [
         {
           "title": "\"before all\" hook in \"{root}\"",
@@ -36,8 +36,26 @@
           "context": null,
           "code": "const chai = await import('chai');\nexpect = chai.expect;",
           "err": {},
-          "uuid": "9f9ee8d1-29a6-460d-8e7d-6ed4a8ea6635",
-          "parentUUID": "3f1005d3-6fd1-4a25-881a-6d0024649e6b",
+          "uuid": "b70c9502-4fa0-410a-9b20-7ec4b8d158ac",
+          "parentUUID": "db4dfcf9-e769-4992-9db6-db807f5a3bdd",
+          "isHook": true,
+          "skipped": false
+        },
+        {
+          "title": "\"before all\" hook in \"{root}\"",
+          "fullTitle": "\"before all\" hook in \"{root}\"",
+          "timedOut": false,
+          "duration": 1,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "const chai = await import('chai');\nexpect = chai.expect;",
+          "err": {},
+          "uuid": "876d932e-cd2d-4854-9ced-eccf8358b6c7",
+          "parentUUID": "db4dfcf9-e769-4992-9db6-db807f5a3bdd",
           "isHook": true,
           "skipped": false
         }
@@ -46,7 +64,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+          "uuid": "9e14655e-e0f2-455c-bbe0-ec2f47026c52",
           "title": "Login Functionality",
           "fullFile": "E:\\Working\\Testing\\puppeteer-testing\\tests\\login.test.js",
           "file": "\\tests\\login.test.js",
@@ -55,7 +73,7 @@
               "title": "\"before all\" hook in \"Login Functionality\"",
               "fullTitle": "Login Functionality \"before all\" hook in \"Login Functionality\"",
               "timedOut": false,
-              "duration": 592,
+              "duration": 847,
               "state": null,
               "speed": null,
               "pass": false,
@@ -64,8 +82,8 @@
               "context": null,
               "code": "browser = await puppeteer.launch({\nheadless: false, // Tắt headless để thấy trình duyệt\nslowMo: 10, // Làm chậm thao tác 100ms để dễ quan sát\nargs: ['--start-maximized'], // Mở trình duyệt ở chế độ toàn màn hình\n  });\npage = await browser.newPage();\nawait page.setViewport({ width: 1280, height: 720 });",
               "err": {},
-              "uuid": "c9d83edf-6a7f-4dc2-b59c-53f2227e60fe",
-              "parentUUID": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+              "uuid": "80693590-18dc-497a-85fa-cf2674d9972c",
+              "parentUUID": "9e14655e-e0f2-455c-bbe0-ec2f47026c52",
               "isHook": true,
               "skipped": false
             }
@@ -75,7 +93,7 @@
               "title": "\"after all\" hook in \"Login Functionality\"",
               "fullTitle": "Login Functionality \"after all\" hook in \"Login Functionality\"",
               "timedOut": false,
-              "duration": 365,
+              "duration": 387,
               "state": null,
               "speed": null,
               "pass": false,
@@ -84,18 +102,18 @@
               "context": null,
               "code": "await browser.close();",
               "err": {},
-              "uuid": "f74a5013-6a18-458e-b9f1-a6cd0ce4c9c8",
-              "parentUUID": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+              "uuid": "ad9f5164-1079-4be0-985c-d70735e7905a",
+              "parentUUID": "9e14655e-e0f2-455c-bbe0-ec2f47026c52",
               "isHook": true,
               "skipped": false
             }
           ],
           "tests": [
             {
-              "title": "Login with invalid email",
-              "fullTitle": "Login Functionality Login with invalid email",
+              "title": "Đăng nhập với tài khoản là emoij",
+              "fullTitle": "Login Functionality Đăng nhập với tài khoản là emoij",
               "timedOut": false,
-              "duration": 12266,
+              "duration": 16177,
               "state": "failed",
               "speed": null,
               "pass": false,
@@ -105,19 +123,19 @@
               "code": "await page.goto(config.baseUrl + '/tai-khoan');\nawait typeText(page, '#username', email);\nawait typeText(page, '#password', password);\nawait clickElement(page, 'button[name=\"login\"]');\nif (expectSuccess) {\n  await waitForElement(page, '.woocommerce-MyAccount-content');\n  const welcomeText = await page.$eval('.woocommerce-MyAccount-content', el => el.textContent);\n  expect(welcomeText).to.include(expectedText);\n} else {\n  await waitForElement(page, '.woocommerce-notices-wrapper');\n  const errorText = await page.$eval('.woocommerce-notices-wrapper', el => el.textContent);\n  expect(errorText).to.include(expectedError);\n}",
               "err": {
                 "message": "AssertionError: expected '\\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tL…' to include 'Hãy nhập đúng định dạng tên người dùng'",
-                "estack": "AssertionError: expected '\\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tL…' to include 'Hãy nhập đúng định dạng tên người dùng'\n    at Context.<anonymous> (tests\\login.test.js:45:30)",
+                "estack": "AssertionError: expected '\\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tL…' to include 'Hãy nhập đúng định dạng tên người dùng'\n    at Context.<anonymous> (tests\\login.test.js:45:30)\n    at runNextTicks (node:internal/process/task_queues:60:5)\n    at listOnTimeout (node:internal/timers:545:9)\n    at process.processTimers (node:internal/timers:519:7)",
                 "diff": null
               },
-              "uuid": "8f2f98b6-2346-4834-ad27-bc9d4d5e285e",
-              "parentUUID": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+              "uuid": "24550092-01ce-410e-9e57-b1fb8adf302e",
+              "parentUUID": "9e14655e-e0f2-455c-bbe0-ec2f47026c52",
               "isHook": false,
               "skipped": false
             },
             {
-              "title": "Login with empty email",
-              "fullTitle": "Login Functionality Login with empty email",
+              "title": "Đăng nhập với tài khoản để trống",
+              "fullTitle": "Login Functionality Đăng nhập với tài khoản để trống",
               "timedOut": false,
-              "duration": 10118,
+              "duration": 10950,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -126,16 +144,16 @@
               "context": null,
               "code": "await page.goto(config.baseUrl + '/tai-khoan');\nawait typeText(page, '#username', email);\nawait typeText(page, '#password', password);\nawait clickElement(page, 'button[name=\"login\"]');\nif (expectSuccess) {\n  await waitForElement(page, '.woocommerce-MyAccount-content');\n  const welcomeText = await page.$eval('.woocommerce-MyAccount-content', el => el.textContent);\n  expect(welcomeText).to.include(expectedText);\n} else {\n  await waitForElement(page, '.woocommerce-notices-wrapper');\n  const errorText = await page.$eval('.woocommerce-notices-wrapper', el => el.textContent);\n  expect(errorText).to.include(expectedError);\n}",
               "err": {},
-              "uuid": "c4ed98da-66ec-424d-b5bb-32900b57da15",
-              "parentUUID": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+              "uuid": "2991cddd-e40f-4534-b55c-4bc5a217f691",
+              "parentUUID": "9e14655e-e0f2-455c-bbe0-ec2f47026c52",
               "isHook": false,
               "skipped": false
             },
             {
-              "title": "Login with empty password",
-              "fullTitle": "Login Functionality Login with empty password",
+              "title": "Đăng nhập với mật khẩu để trống",
+              "fullTitle": "Login Functionality Đăng nhập với mật khẩu để trống",
               "timedOut": false,
-              "duration": 10367,
+              "duration": 11662,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -144,8 +162,52 @@
               "context": null,
               "code": "await page.goto(config.baseUrl + '/tai-khoan');\nawait typeText(page, '#username', email);\nawait typeText(page, '#password', password);\nawait clickElement(page, 'button[name=\"login\"]');\nif (expectSuccess) {\n  await waitForElement(page, '.woocommerce-MyAccount-content');\n  const welcomeText = await page.$eval('.woocommerce-MyAccount-content', el => el.textContent);\n  expect(welcomeText).to.include(expectedText);\n} else {\n  await waitForElement(page, '.woocommerce-notices-wrapper');\n  const errorText = await page.$eval('.woocommerce-notices-wrapper', el => el.textContent);\n  expect(errorText).to.include(expectedError);\n}",
               "err": {},
-              "uuid": "7c92f511-a94b-49c3-8bfc-ec1d62604ee4",
-              "parentUUID": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+              "uuid": "a495795a-063d-4756-a796-c23f28c542ec",
+              "parentUUID": "9e14655e-e0f2-455c-bbe0-ec2f47026c52",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Đăng nhập với tài khoản chứa khoảng trắng",
+              "fullTitle": "Login Functionality Đăng nhập với tài khoản chứa khoảng trắng",
+              "timedOut": false,
+              "duration": 12093,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await page.goto(config.baseUrl + '/tai-khoan');\nawait typeText(page, '#username', email);\nawait typeText(page, '#password', password);\nawait clickElement(page, 'button[name=\"login\"]');\nif (expectSuccess) {\n  await waitForElement(page, '.woocommerce-MyAccount-content');\n  const welcomeText = await page.$eval('.woocommerce-MyAccount-content', el => el.textContent);\n  expect(welcomeText).to.include(expectedText);\n} else {\n  await waitForElement(page, '.woocommerce-notices-wrapper');\n  const errorText = await page.$eval('.woocommerce-notices-wrapper', el => el.textContent);\n  expect(errorText).to.include(expectedError);\n}",
+              "err": {
+                "message": "AssertionError: expected '\\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tL…' to include 'Tên đăng nhập không được chứa khoảng …'",
+                "estack": "AssertionError: expected '\\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tL…' to include 'Tên đăng nhập không được chứa khoảng …'\n    at Context.<anonymous> (tests\\login.test.js:45:30)\n    at runNextTicks (node:internal/process/task_queues:60:5)\n    at listOnTimeout (node:internal/timers:545:9)\n    at process.processTimers (node:internal/timers:519:7)",
+                "diff": null
+              },
+              "uuid": "d5f5ec6c-c882-428e-b52a-162baa263551",
+              "parentUUID": "9e14655e-e0f2-455c-bbe0-ec2f47026c52",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Mật khẩu dưới 8 ký tự",
+              "fullTitle": "Login Functionality Mật khẩu dưới 8 ký tự",
+              "timedOut": false,
+              "duration": 11378,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await page.goto(config.baseUrl + '/tai-khoan');\nawait typeText(page, '#username', email);\nawait typeText(page, '#password', password);\nawait clickElement(page, 'button[name=\"login\"]');\nif (expectSuccess) {\n  await waitForElement(page, '.woocommerce-MyAccount-content');\n  const welcomeText = await page.$eval('.woocommerce-MyAccount-content', el => el.textContent);\n  expect(welcomeText).to.include(expectedText);\n} else {\n  await waitForElement(page, '.woocommerce-notices-wrapper');\n  const errorText = await page.$eval('.woocommerce-notices-wrapper', el => el.textContent);\n  expect(errorText).to.include(expectedError);\n}",
+              "err": {
+                "message": "AssertionError: expected '\\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tL…' to include 'Mật khẩu phải từ 8 ký tự trở lên'",
+                "estack": "AssertionError: expected '\\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\tL…' to include 'Mật khẩu phải từ 8 ký tự trở lên'\n    at Context.<anonymous> (tests\\login.test.js:45:30)\n    at runNextTicks (node:internal/process/task_queues:60:5)\n    at listOnTimeout (node:internal/timers:545:9)\n    at process.processTimers (node:internal/timers:519:7)",
+                "diff": null
+              },
+              "uuid": "d75d4905-ba76-48ca-951f-df967c8709c6",
+              "parentUUID": "9e14655e-e0f2-455c-bbe0-ec2f47026c52",
               "isHook": false,
               "skipped": false
             },
@@ -153,7 +215,7 @@
               "title": "Login with valid credentials",
               "fullTitle": "Login Functionality Login with valid credentials",
               "timedOut": false,
-              "duration": 12944,
+              "duration": 12718,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -162,24 +224,199 @@
               "context": null,
               "code": "await page.goto(config.baseUrl + '/tai-khoan');\nawait typeText(page, '#username', email);\nawait typeText(page, '#password', password);\nawait clickElement(page, 'button[name=\"login\"]');\nif (expectSuccess) {\n  await waitForElement(page, '.woocommerce-MyAccount-content');\n  const welcomeText = await page.$eval('.woocommerce-MyAccount-content', el => el.textContent);\n  expect(welcomeText).to.include(expectedText);\n} else {\n  await waitForElement(page, '.woocommerce-notices-wrapper');\n  const errorText = await page.$eval('.woocommerce-notices-wrapper', el => el.textContent);\n  expect(errorText).to.include(expectedError);\n}",
               "err": {},
-              "uuid": "a86eada8-901e-4b6e-afef-4dc5086827e9",
-              "parentUUID": "eb40bc1a-6d47-42bc-afc2-8f946143c7cb",
+              "uuid": "f5347678-2af0-424a-bc58-5c731ef9cdc0",
+              "parentUUID": "9e14655e-e0f2-455c-bbe0-ec2f47026c52",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "c4ed98da-66ec-424d-b5bb-32900b57da15",
-            "7c92f511-a94b-49c3-8bfc-ec1d62604ee4",
-            "a86eada8-901e-4b6e-afef-4dc5086827e9"
+            "2991cddd-e40f-4534-b55c-4bc5a217f691",
+            "a495795a-063d-4756-a796-c23f28c542ec",
+            "f5347678-2af0-424a-bc58-5c731ef9cdc0"
           ],
           "failures": [
-            "8f2f98b6-2346-4834-ad27-bc9d4d5e285e"
+            "24550092-01ce-410e-9e57-b1fb8adf302e",
+            "d5f5ec6c-c882-428e-b52a-162baa263551",
+            "d75d4905-ba76-48ca-951f-df967c8709c6"
           ],
           "pending": [],
           "skipped": [],
-          "duration": 45695,
+          "duration": 74978,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        },
+        {
+          "uuid": "7911431e-3ff7-489d-a0ef-98f04871c09f",
+          "title": "Search Functionality",
+          "fullFile": "E:\\Working\\Testing\\puppeteer-testing\\tests\\search.test.js",
+          "file": "\\tests\\search.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"Search Functionality\"",
+              "fullTitle": "Search Functionality \"before all\" hook in \"Search Functionality\"",
+              "timedOut": false,
+              "duration": 587,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "browser = await puppeteer.launch({\n  headless: false,\n  slowMo: 10,\n  args: ['--start-maximized'],\n});\npage = await browser.newPage();\nawait page.setViewport({ width: 1280, height: 720 });",
+              "err": {},
+              "uuid": "dd5a7d11-f88c-4b82-a11a-765e5aa7586b",
+              "parentUUID": "7911431e-3ff7-489d-a0ef-98f04871c09f",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \"Search Functionality\"",
+              "fullTitle": "Search Functionality \"after all\" hook in \"Search Functionality\"",
+              "timedOut": false,
+              "duration": 1974,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await browser.close();",
+              "err": {},
+              "uuid": "630c7064-26a2-4e41-9171-d17ba296e1f8",
+              "parentUUID": "7911431e-3ff7-489d-a0ef-98f04871c09f",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "Nên hiển thị kết quả khi tìm từ khóa hợp lệ",
+              "fullTitle": "Search Functionality Nên hiển thị kết quả khi tìm từ khóa hợp lệ",
+              "timedOut": false,
+              "duration": 36797,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await page.goto(config.baseUrl);\nawait page.type('#woocommerce-product-search-field-1', testCase.keyword);\nawait clickElement(page, 'button[type=\"submit\"]');\nswitch (testCase.expected.type) {\n    case 'RESULTS_FOUND':\n        await page.waitForSelector('#shop-container');\n        const products = await page.$$('#shop-container .product-small.box ');\n        expect(products.length).to.be.at.least(testCase.expected.assertionData.minResults);\n        const pageTitle = await page.$eval('#name.product-title.woocommerce-loop-product__title', el => el.textContent);\n        expect(pageTitle).to.include(testCase.expected.assertionData.pageTitleContains);\n        break;\n    case 'NO_RESULTS':\n        await page.waitForSelector('#no-results-message');\n        const message = await page.$eval('#no-results-message', el => el.textContent);\n        expect(message).to.include(testCase.expected.assertionData.message);\n        break;\n    case 'NO_ACTION':\n        await new Promise(resolve => setTimeout(resolve, 500)); \n        expect(page.url()).to.equal(initialUrl);\n        break;\n    default:\n        throw new Error(`Kiểu kết quả không xác định: ${testCase.expected.type}`);\n}",
+              "err": {
+                "message": "TimeoutError: Waiting for selector `#shop-container` failed: Waiting failed: 30000ms exceeded",
+                "estack": "TimeoutError: Waiting for selector `#shop-container` failed: Waiting failed: 30000ms exceeded\n    at new WaitTask (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\common\\WaitTask.js:48:34)\n    at IsolatedWorld.waitForFunction (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\api\\Realm.js:25:26)\n    at CSSQueryHandler.waitFor (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\common\\QueryHandler.js:178:95)\n    at async CdpFrame.waitForSelector (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\api\\Frame.js:548:21)\n    at async CdpPage.waitForSelector (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\api\\Page.js:1377:20)\n    at async Context.<anonymous> (tests\\search.test.js:40:21)",
+                "diff": null
+              },
+              "uuid": "14fbdce8-1cbb-4a85-97fe-16f2fcb0ddc9",
+              "parentUUID": "7911431e-3ff7-489d-a0ef-98f04871c09f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Nên hiển thị thông báo khi không có kết quả",
+              "fullTitle": "Search Functionality Nên hiển thị thông báo khi không có kết quả",
+              "timedOut": false,
+              "duration": 33842,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await page.goto(config.baseUrl);\nawait page.type('#woocommerce-product-search-field-1', testCase.keyword);\nawait clickElement(page, 'button[type=\"submit\"]');\nswitch (testCase.expected.type) {\n    case 'RESULTS_FOUND':\n        await page.waitForSelector('#shop-container');\n        const products = await page.$$('#shop-container .product-small.box ');\n        expect(products.length).to.be.at.least(testCase.expected.assertionData.minResults);\n        const pageTitle = await page.$eval('#name.product-title.woocommerce-loop-product__title', el => el.textContent);\n        expect(pageTitle).to.include(testCase.expected.assertionData.pageTitleContains);\n        break;\n    case 'NO_RESULTS':\n        await page.waitForSelector('#no-results-message');\n        const message = await page.$eval('#no-results-message', el => el.textContent);\n        expect(message).to.include(testCase.expected.assertionData.message);\n        break;\n    case 'NO_ACTION':\n        await new Promise(resolve => setTimeout(resolve, 500)); \n        expect(page.url()).to.equal(initialUrl);\n        break;\n    default:\n        throw new Error(`Kiểu kết quả không xác định: ${testCase.expected.type}`);\n}",
+              "err": {
+                "message": "TimeoutError: Waiting for selector `#no-results-message` failed: Waiting failed: 30000ms exceeded",
+                "estack": "TimeoutError: Waiting for selector `#no-results-message` failed: Waiting failed: 30000ms exceeded\n    at new WaitTask (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\common\\WaitTask.js:48:34)\n    at IsolatedWorld.waitForFunction (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\api\\Realm.js:25:26)\n    at CSSQueryHandler.waitFor (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\common\\QueryHandler.js:178:95)\n    at runNextTicks (node:internal/process/task_queues:60:5)\n    at listOnTimeout (node:internal/timers:545:9)\n    at process.processTimers (node:internal/timers:519:7)\n    at async CdpFrame.waitForSelector (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\api\\Frame.js:548:21)\n    at async CdpPage.waitForSelector (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\api\\Page.js:1377:20)\n    at async Context.<anonymous> (tests\\search.test.js:50:21)",
+                "diff": null
+              },
+              "uuid": "7fc006bd-3244-4009-b81c-1fba2fb56f33",
+              "parentUUID": "7911431e-3ff7-489d-a0ef-98f04871c09f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Nên không thực hiện tìm kiếm khi từ khóa rỗng",
+              "fullTitle": "Search Functionality Nên không thực hiện tìm kiếm khi từ khóa rỗng",
+              "timedOut": false,
+              "duration": 2705,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await page.goto(config.baseUrl);\nawait page.type('#woocommerce-product-search-field-1', testCase.keyword);\nawait clickElement(page, 'button[type=\"submit\"]');\nswitch (testCase.expected.type) {\n    case 'RESULTS_FOUND':\n        await page.waitForSelector('#shop-container');\n        const products = await page.$$('#shop-container .product-small.box ');\n        expect(products.length).to.be.at.least(testCase.expected.assertionData.minResults);\n        const pageTitle = await page.$eval('#name.product-title.woocommerce-loop-product__title', el => el.textContent);\n        expect(pageTitle).to.include(testCase.expected.assertionData.pageTitleContains);\n        break;\n    case 'NO_RESULTS':\n        await page.waitForSelector('#no-results-message');\n        const message = await page.$eval('#no-results-message', el => el.textContent);\n        expect(message).to.include(testCase.expected.assertionData.message);\n        break;\n    case 'NO_ACTION':\n        await new Promise(resolve => setTimeout(resolve, 500)); \n        expect(page.url()).to.equal(initialUrl);\n        break;\n    default:\n        throw new Error(`Kiểu kết quả không xác định: ${testCase.expected.type}`);\n}",
+              "err": {
+                "message": "ReferenceError: initialUrl is not defined",
+                "estack": "ReferenceError: initialUrl is not defined\n    at Context.<anonymous> (tests\\search.test.js:57:49)",
+                "diff": null
+              },
+              "uuid": "e1f5ed34-be1b-433c-b82b-656b21a9baf6",
+              "parentUUID": "7911431e-3ff7-489d-a0ef-98f04871c09f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Nên xử lý an toàn với chuỗi XSS tiềm năng",
+              "fullTitle": "Search Functionality Nên xử lý an toàn với chuỗi XSS tiềm năng",
+              "timedOut": false,
+              "duration": 33400,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await page.goto(config.baseUrl);\nawait page.type('#woocommerce-product-search-field-1', testCase.keyword);\nawait clickElement(page, 'button[type=\"submit\"]');\nswitch (testCase.expected.type) {\n    case 'RESULTS_FOUND':\n        await page.waitForSelector('#shop-container');\n        const products = await page.$$('#shop-container .product-small.box ');\n        expect(products.length).to.be.at.least(testCase.expected.assertionData.minResults);\n        const pageTitle = await page.$eval('#name.product-title.woocommerce-loop-product__title', el => el.textContent);\n        expect(pageTitle).to.include(testCase.expected.assertionData.pageTitleContains);\n        break;\n    case 'NO_RESULTS':\n        await page.waitForSelector('#no-results-message');\n        const message = await page.$eval('#no-results-message', el => el.textContent);\n        expect(message).to.include(testCase.expected.assertionData.message);\n        break;\n    case 'NO_ACTION':\n        await new Promise(resolve => setTimeout(resolve, 500)); \n        expect(page.url()).to.equal(initialUrl);\n        break;\n    default:\n        throw new Error(`Kiểu kết quả không xác định: ${testCase.expected.type}`);\n}",
+              "err": {
+                "message": "TimeoutError: Waiting for selector `#no-results-message` failed: Waiting failed: 30000ms exceeded",
+                "estack": "TimeoutError: Waiting for selector `#no-results-message` failed: Waiting failed: 30000ms exceeded\n    at new WaitTask (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\common\\WaitTask.js:48:34)\n    at IsolatedWorld.waitForFunction (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\api\\Realm.js:25:26)\n    at CSSQueryHandler.waitFor (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\common\\QueryHandler.js:178:95)\n    at runNextTicks (node:internal/process/task_queues:60:5)\n    at listOnTimeout (node:internal/timers:545:9)\n    at process.processTimers (node:internal/timers:519:7)\n    at async CdpFrame.waitForSelector (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\api\\Frame.js:548:21)\n    at async CdpPage.waitForSelector (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\api\\Page.js:1377:20)\n    at async Context.<anonymous> (tests\\search.test.js:50:21)",
+                "diff": null
+              },
+              "uuid": "9bbf637d-f242-4372-b023-374537a5428e",
+              "parentUUID": "7911431e-3ff7-489d-a0ef-98f04871c09f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Nên tìm kiếm chính xác với nhiều từ khóa",
+              "fullTitle": "Search Functionality Nên tìm kiếm chính xác với nhiều từ khóa",
+              "timedOut": false,
+              "duration": 33516,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await page.goto(config.baseUrl);\nawait page.type('#woocommerce-product-search-field-1', testCase.keyword);\nawait clickElement(page, 'button[type=\"submit\"]');\nswitch (testCase.expected.type) {\n    case 'RESULTS_FOUND':\n        await page.waitForSelector('#shop-container');\n        const products = await page.$$('#shop-container .product-small.box ');\n        expect(products.length).to.be.at.least(testCase.expected.assertionData.minResults);\n        const pageTitle = await page.$eval('#name.product-title.woocommerce-loop-product__title', el => el.textContent);\n        expect(pageTitle).to.include(testCase.expected.assertionData.pageTitleContains);\n        break;\n    case 'NO_RESULTS':\n        await page.waitForSelector('#no-results-message');\n        const message = await page.$eval('#no-results-message', el => el.textContent);\n        expect(message).to.include(testCase.expected.assertionData.message);\n        break;\n    case 'NO_ACTION':\n        await new Promise(resolve => setTimeout(resolve, 500)); \n        expect(page.url()).to.equal(initialUrl);\n        break;\n    default:\n        throw new Error(`Kiểu kết quả không xác định: ${testCase.expected.type}`);\n}",
+              "err": {
+                "message": "TimeoutError: Waiting for selector `#shop-container` failed: Waiting failed: 30000ms exceeded",
+                "estack": "TimeoutError: Waiting for selector `#shop-container` failed: Waiting failed: 30000ms exceeded\n    at new WaitTask (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\common\\WaitTask.js:48:34)\n    at IsolatedWorld.waitForFunction (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\api\\Realm.js:25:26)\n    at CSSQueryHandler.waitFor (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\common\\QueryHandler.js:178:95)\n    at async CdpFrame.waitForSelector (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\api\\Frame.js:548:21)\n    at async CdpPage.waitForSelector (node_modules\\puppeteer-core\\lib\\cjs\\puppeteer\\api\\Page.js:1377:20)\n    at async Context.<anonymous> (tests\\search.test.js:40:21)",
+                "diff": null
+              },
+              "uuid": "b0109324-4e43-401a-8b09-a43ca4de6aa6",
+              "parentUUID": "7911431e-3ff7-489d-a0ef-98f04871c09f",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "14fbdce8-1cbb-4a85-97fe-16f2fcb0ddc9",
+            "7fc006bd-3244-4009-b81c-1fba2fb56f33",
+            "e1f5ed34-be1b-433c-b82b-656b21a9baf6",
+            "9bbf637d-f242-4372-b023-374537a5428e",
+            "b0109324-4e43-401a-8b09-a43ca4de6aa6"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 140260,
           "root": false,
           "rootEmpty": false,
           "_timeout": 60000

@@ -10,7 +10,7 @@ before(async () => {
   expect = chai.expect;
 });
 
-describe('Login Functionality', () => {
+describe('Register Functionality', () => {
   let browser;
   let page;
 
