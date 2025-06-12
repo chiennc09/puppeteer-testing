@@ -12,6 +12,5 @@ module.exports = {
     email: 'newuser' + Date.now() + '@example.com', // Tạo email duy nhất
     password: 'Test@123'
   },
-  searchQuery: 'iPhone 14', // Từ khóa tìm kiếm
   timeout: 30000 // Thời gian chờ tối đa (ms)
 };
