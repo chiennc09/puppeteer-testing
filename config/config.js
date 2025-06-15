@@ -1,5 +1,7 @@
 module.exports = {
   baseUrl: 'https://2tmobile.com/', // Thay bằng URL thực tế
+  orderUrl: 'https://2tmobile.com/thanh-toan/', 
+  orderReceived: '/order-received',
   validUser: {
     email: '123!@gmail.com',
     password: 'Test@12333'

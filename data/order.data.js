@@ -1,9 +1,114 @@
 const orderTestCases = [
+  // {
+  //   description: 'Đặt hàng khi thông tin được để trống',
+  //   firstName: '',
+  //   lastname: '',
+  //   address: '',
+  //   city: '',
+  //   phoneNumber: '',
+  //   email: '',
+  //   expectResults: false,
+  //   expectedError: 'mục là mục bắt buộc'
+  // },
+  // {
+  //   description: 'Đặt hàng khi nhập đúng kiểu thông tin “Họ”, “Tên”',
+  //   firstName: 'Hà',
+  //   lastname: 'Thành',
+  //   city: 'Hà Nội',
+  //   address: 'Tân Triều, Thanh Trì, Hà Nội',
+  //   apartment: 'Số 42, ngõ 39',
+  //   phoneNumber: '0945634561',
+  //   email: 'hathanh@example.com',
+  //   expectResults: true,
+  //   navigation: '/order-received'
+  // },
+  // {
+  //   description: 'Đặt hàng khi nhập có kí tự đặc biệt của “Họ”, “Tên”',
+  //   firstName: 'Q@2d',
+  //   lastname: '@chè',
+  //   city: 'Hà Nội',
+  //   address: 'Tân Triều, Thanh Trì, Hà Nội',
+  //   apartment: 'Số 42, ngõ 39',
+  //   phoneNumber: '0945634561',
+  //   email: 'test@example.com',
+  //   expectResults: false,
+  //   expectedError: 'vui lòng nhập tên hợp lệ' // Hoặc lỗi thực tế mà trang web phản hồi
+  // },
+  // {
+  //   description: 'Đặt hàng với đúng địa chỉ',
+  //   firstName: 'Hà',
+  //   lastname: 'Thành',
+  //   city: 'Hà Nội',
+  //   address: 'Tân Triều, Thanh Trì, Hà Nội',
+  //   apartment: 'Số 42, ngõ 39',
+  //   phoneNumber: '0945634561',
+  //   email: 'hathanh@example.com',
+  //   expectResults: true,
+  //   navigation: '/order-received'
+  // },
+  // {
+  //   description: 'Đặt hàng với sai địa chỉ, có kí tự đặc biệt',
+  //   firstName: 'Hà',
+  //   lastname: 'Thành',
+  //   city: 'Hà Nội',
+  //   address: 'ấcfef*&^%$',
+  //   apartment: '^&%&vcavc',
+  //   phoneNumber: '0945634561',
+  //   email: 'test@example.com',
+  //   expectResults: false,
+  //   expectedError: 'địa chỉ không hợp lệ'
+  // },
+  // {
+  //   description: 'Đặt hàng với đúng số điện thoại',
+  //   firstName: 'Hà',
+  //   lastname: 'Thành',
+  //   city: 'Hà Nội',
+  //   address: 'Tân Triều, Thanh Trì, Hà Nội',
+  //   apartment: 'Số 42, ngõ 39',
+  //   phoneNumber: '0945634561',
+  //   email: 'hathanh@example.com',
+  //   expectResults: true,
+  //   navigation: '/order-received'
+  // },
+  // {
+  //   description: 'Đặt hàng với số điện thoại có toàn kí tự đặc biệt',
+  //   firstName: 'Hà',
+  //   lastname: 'Thành',
+  //   city: 'Hà Nội',
+  //   address: 'Tân Triều, Thanh Trì, Hà Nội',
+  //   apartment: 'Số 42, ngõ 39',
+  //   phoneNumber: '^%$*%*',
+  //   email: 'test@example.com',
+  //   expectResults: false,
+  //   expectedError: 'số điện thoại không hợp lệ'
+  // },
+  // {
+  //   description: 'Đặt hàng với số điện thoại có chứa kí tự đặc biệt',
+  //   firstName: 'Hà',
+  //   lastname: 'Thành',
+  //   city: 'Hà Nội',
+  //   address: 'Tân Triều, Thanh Trì, Hà Nội',
+  //   apartment: 'Số 42, ngõ 39',
+  //   phoneNumber: '0312@$%^12',
+  //   email: 'test@example.com',
+  //   expectResults: false,
+  //   expectedError: 'số điện thoại không hợp lệ'
+  // },
+  // {
+  //   description: 'Đặt hàng với số điện thoại không đúng độ dài',
+  //   firstName: 'Hà',
+  //   lastname: 'Thành',
+  //   city: 'Hà Nội',
+  //   address: 'Tân Triều, Thanh Trì, Hà Nội',
+  //   apartment: 'Số 42, ngõ 39',
+  //   phoneNumber: '1',
+  //   email: 'test@example.com',
+  //   expectResults: false,
+  //   expectedError: 'số điện thoại không hợp lệ'
+  // }
     {
       description: 'Đặt hàng khi thông tin được để trống',
-      firstName: '',
-      lastname: '',
-      expectedError: "mục bắt buộc."
+      expectedError: "mục bắt buộc"
     },
     {
       description: 'Đặt hàng khi nhập đúng kiểu thông tin “Họ”, “Tên”',
@@ -14,7 +119,6 @@ const orderTestCases = [
       apartment: 'Số 42, ngõ 39',
       phoneNumber: '0945634561',
       expectResults: true,
-      navigation: '/order-received'
     },
     {
       description: 'Đặt hàng khi nhập có kí tự đặc biệt của “Họ”, “Tên”',
@@ -24,7 +128,7 @@ const orderTestCases = [
       address: 'Tân Triều, Thanh Trì, Hà Nội',
       apartment: 'Số 42, ngõ 39',
       phoneNumber: '0945634561',
-      expectedError: "Thông tin họ tên không hợp lệ"
+      expectedError: "Thông tin họ tên không hợp lệ",
     },
     {
       description: 'Đặt hàng với đúng địa chỉ',
@@ -35,7 +139,6 @@ const orderTestCases = [
       apartment: 'Số 42, ngõ 39',
       phoneNumber: '0945634561',
       expectResults: true,
-      navigation: '/order-received'
     },
     {
       description: 'Đặt hàng với sai địa chỉ, có kí tự đặc biệt',
@@ -45,7 +148,7 @@ const orderTestCases = [
       address: 'ấcfef*&^%$',
       apartment: '^&%&vcavc',
       phoneNumber: '0945634561',
-      expectedError: "Thông tin địa chỉ không đúng định dạng."
+      expectedError: "Thông tin địa chỉ không đúng định dạng.",
     },
     {
       description: 'Đặt hàng với đúng số điện thoại',
@@ -56,7 +159,6 @@ const orderTestCases = [
       apartment: 'Số 42, ngõ 39',
       phoneNumber: '0945634561',
       expectResults: true,
-      navigation: '/order-received'
     },
     {
       description: 'Đặt hàng với số điện thoại có chứa kí tự đặc biệt',
@@ -66,7 +168,7 @@ const orderTestCases = [
       address: 'Tân Triều, Thanh Trì, Hà Nội',
       apartment: 'Căn hộ: số 42, ngõ 39',
       phoneNumber: '^%$*%*',
-      expectedError: "Só điện thoại không đúng định dạng!!"
+      expectedError: "Só điện thoại không đúng định dạng!!",
     },
     {
       description: 'Đặt hàng với số điện thoại không đúng độ dài',
@@ -76,9 +178,8 @@ const orderTestCases = [
       address: 'Tân Triều, Thanh Trì, Hà Nội',
       apartment: 'Số 42, ngõ 39',
       phoneNumber: '1',
-      expectedError: "Số điện thoại không hợp lệ"
+      expectedError: "Số điện thoại không hợp lệ",
     },
-    
 ];
 
 module.exports = orderTestCases;
