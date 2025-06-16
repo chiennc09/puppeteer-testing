@@ -1,5 +1,3 @@
-// File này chỉ chứa dữ liệu test case cho chức năng tìm kiếm.
-
 const registerTestCases = [
     {
       description: 'Đăng kí với địa chỉ email không đúng định dạng',
