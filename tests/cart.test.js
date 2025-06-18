@@ -16,7 +16,8 @@ describe('Cart Functionality', () => {
 
     before(async () => {
         browser = await puppeteer.launch({
-        headless: false, // Tắt headless để thấy trình duyệt
+        headless: false,
+        slowMo: -30,
         args: ['--start-maximized'], // Mở trình duyệt ở chế độ toàn màn hình
     });
         page = await browser.newPage();
@@ -31,11 +32,11 @@ describe('Cart Functionality', () => {
     addItemToCart: async (productUrl, quantity = 1) => {
         await page.goto(productUrl);
         if (quantity > 1) {
-            await page.click('#quantity-input', { clickCount: 3 }); // Xóa giá trị cũ
-            await page.type('#quantity-input', quantity.toString());
+            await page.click('.input-text.qty.text', { clickCount: 3 }); // Xóa giá trị cũ
+            await page.type('.input-text.qty.text', quantity.toString());
         }
-        await page.click('#add-to-cart-btn');
-        await page.waitForSelector('.toast-success'); // Chờ để đảm bảo hành động hoàn tất
+        await page.click('.single_add_to_cart_button');
+        
     }
   };
 
@@ -43,7 +44,8 @@ describe('Cart Functionality', () => {
         it(`${testCase.description}`, async function() {
             
             if (testCase.steps.includes('setup_add_item')) {
-                await actions.addItemToCart(test.productUrl);
+                await actions.addItemToCart(testCase.productUrl);
+                await page.waitForSelector('[role="alert"]');
             }
 
             // Thực thi các bước tuần tự
@@ -59,6 +61,7 @@ describe('Cart Functionality', () => {
 
                     case 'add_to_cart':
                         await clickElement(page, '.single_add_to_cart_button');
+                        await page.waitForSelector('[role="alert"]');
                         break;
 
                     case 'add_to_cart_with_quantity':
@@ -90,42 +93,63 @@ describe('Cart Functionality', () => {
                         expect(productQuantity).to.equal(totalQuantity.toString());
                         break;
 
+                    case 'change_quantity_in_cart':
+                        await page.click('.ux-quantity__button--plus');
+                        await clickElement(page, 'button[name="update_cart"]');
+                        break;
+
                     case 'delete_item':
                         await page.waitForSelector('.remove');
                         await page.click('.remove');
                         break;
+
+                    case 'restore-item':
+                        await page.waitForSelector('.restore-item');
+                        await page.click('.restore-item');
+                        break;
                     
                     case 'verify_toast_message':
-                        await page.waitForSelector('.toast-info');
-                        const message = await page.$eval('.toast-info', el => el.textContent);
-                        expect(message).to.include(test.expectedResult);
+                        await page.waitForSelector('.woocommerce-info.message-wrapper');
+                        const errorText = await page.$eval('.woocommerce-info.message-wrapper', el => el.textContent);
+                        expect(errorText).to.include(testCase.expectedResult);
+                        break;
+
+                    case 'verify_toast_alert':
+                        await page.waitForSelector('[role="alert"]');
+                        const errorAlert = await page.$eval('[role="alert"]', el => el.textContent);
+                        expect(errorAlert).to.include(testCase.expectedResult);
                         break;
 
                     case 'proceed_to_checkout':
-                        await page.waitForSelector('.checkout-btn');
-                        await page.click('.checkout-btn');
+                        await page.waitForSelector('.checkout-button');
+                        await page.click('.checkout-button');
                         break;
                     
                     case 'verify_url':
-                        await page.waitForNavigation();
-                        expect(page.url()).to.equal(test.expectedResult);
+                        await page.waitForFunction(() => {
+                            const spinner = document.querySelector('.blockUI.blockOverlay');
+                            return !spinner || spinner.style.display === 'none' || spinner.offsetParent === null;
+                        }, { timeout: 10000 });
+                        expect(page.url()).to.equal(testCase.expectedResult);
                         break;
                 }
             }
-            if (testCase.id === 'GH_001') {
-                // await page.waitForSelector('.header-cart-link.is-small');
-                // await page.click('.header-cart-link.is-small');
-                await page.waitForSelector('.woocommerce-info.message-wrapper');
-                const errorText = await page.$eval('.woocommerce-info.message-wrapper', el => el.textContent);
-                expect(errorText).to.include(testCase.expectedResult);
-                // await page.waitForSelector('.woocommerce');
-                // const errorText = await page.$eval('.woocommerce', el => el.textContent);
-                // expect(errorText).to.include(testCase.expectedResult);
-            }else if (testCase.id === 'GH_002'){
-                await page.waitForSelector('[role="alert"]');
-                const errorText = await page.$eval('[role="alert"]', el => el.textContent);
-                expect(errorText).to.include(testCase.expectedResult);
-            }
+
+
+            // if (testCase.id === 'GH_001' || testCase.id === 'GH_006') {
+            //     // await page.waitForSelector('.header-cart-link.is-small');
+            //     // await page.click('.header-cart-link.is-small');
+            //     await page.waitForSelector('.woocommerce');
+            //     const errorText = await page.$eval('.woocommerce', el => el.textContent);
+            //     expect(errorText).to.include(testCase.expectedResult);
+            //     // await page.waitForSelector('.woocommerce');
+            //     // const errorText = await page.$eval('.woocommerce', el => el.textContent);
+            //     // expect(errorText).to.include(testCase.expectedResult);
+            // }else if (testCase.id === 'GH_002'){
+            //     await page.waitForSelector('[role="alert"]');
+            //     const errorText = await page.$eval('[role="alert"]', el => el.textContent);
+            //     expect(errorText).to.include(testCase.expectedResult);
+            // }
             
         });
     });
