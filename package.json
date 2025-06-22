@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/*.test.js --reporter mochawesome --timeout 30000"
+    "test": "mocha tests/*.test.js --reporter mochawesome --timeout 60000",
+    "test:login": "mocha tests/login.test.js --reporter mochawesome --timeout 60000",
+    "test:cart": "mocha tests/cart.test.js --reporter mochawesome --timeout 60000",
+    "test:register": "mocha tests/register.test.js --reporter mochawesome --timeout 60000",
+    "test:search": "mocha tests/search.test.js --reporter mochawesome --timeout 60000",
+    "test:order": "mocha tests/order.test.js --reporter mochawesome --timeout 60000",
+    "test:payment": "mocha tests/payment.test.js --reporter mochawesome --timeout 60000"
   },
   "keywords": [],
   "author": "",

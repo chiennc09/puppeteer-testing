@@ -47,7 +47,7 @@ describe('Cart Functionality', () => {
     };
 
     cartTestCases.forEach((testCase) => {
-        it(`${testCase.description}`, async function() {
+        it(`[${testCase.id}] ${testCase.description}`, async function() {
             
             if (testCase.steps.includes('setup_add_item')) {
                 await actions.addItemToCart(testCase.productUrl);
