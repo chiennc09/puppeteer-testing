@@ -33,7 +33,7 @@ describe('Search Functionality', () => {
       await page.waitForSelector('input[type="search"]', { timeout: config.timeout });
       await page.click('input[type="search"]', { clickCount: 3 });
       await page.type('input[type="search"]', searchTerm);
-      if(id != 'TK_001')
+      if(id != 'TK_01')
         await waitForElement(page, '.autocomplete-suggestions', { timeout: config.timeout });
     },
     getSearchResultsText: async (press_search) => {

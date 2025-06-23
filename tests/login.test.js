@@ -28,21 +28,21 @@ describe('Login Functionality', () => {
     await browser.close();
   });
 
-  testData.loginTestCases.forEach(({ description, email, password, expectSuccess, expectedText, expectedError }) => {
-    it(description, async () => {
+  testData.loginTestCases.forEach((testCase) => {
+    it(`[${testCase.id}] ${testCase.description}`, async () => {
       await page.goto(config.baseUrl + '/tai-khoan');
-      await typeText(page, '#username', email);
-      await typeText(page, '#password', password);
+      await typeText(page, '#username', testCase.email);
+      await typeText(page, '#password', testCase.password);
       await clickElement(page, 'button[name="login"]');
 
-      if (expectSuccess) {
+      if (testCase.expectSuccess) {
         await waitForElement(page, '.woocommerce-MyAccount-content');
         const welcomeText = await page.$eval('.woocommerce-MyAccount-content', el => el.textContent);
-        expect(welcomeText).to.include(expectedText);
+        expect(welcomeText).to.include(testCase.expectedText);
       } else {
         await waitForElement(page, '.woocommerce-notices-wrapper');
         const errorText = await page.$eval('.woocommerce-notices-wrapper', el => el.textContent);
-        expect(errorText).to.include(expectedError);
+        expect(errorText).to.include(testCase.expectedError);
       }
     });
   });

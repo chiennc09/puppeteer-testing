@@ -29,7 +29,7 @@ describe('Register Functionality', () => {
   });
 
   registerTestCases.forEach((testCase) => {
-    it(`${testCase.description}`, async () => {
+    it(`[${testCase.id}] ${testCase.description}`, async () => {
       await page.goto(config.baseUrl + '/tai-khoan');
       await typeText(page, '#reg_email', testCase.email);
       await typeText(page, '#reg_password', testCase.password);

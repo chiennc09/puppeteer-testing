@@ -28,7 +28,7 @@ describe('Order Functionality', () => {
   });
 
   orderTestCases.forEach((testCase) => {
-    it(testCase.description, async () => {
+    it(`[${testCase.id}] ${testCase.description}`, async () => {
         const productUrl = `${config.baseUrl}/macbook-pro-m4-14-inch-2024-open-box/`;
         await page.goto(productUrl, { waitUntil: 'networkidle2', timeout: config.timeout });
 
@@ -69,22 +69,10 @@ describe('Order Functionality', () => {
           return !spinner || spinner.style.display === 'none' || spinner.offsetParent === null;
         }, { timeout: 10000 });
 
-        // const termsCheckbox = await page.$('#terms');
-        // if (termsCheckbox) {
-        //   const isChecked = await page.$eval('#terms', el => el.checked);
-        //   if (!isChecked) await page.click('#terms');
-        // }
-
         await page.evaluate(() => {
           const btn = document.querySelector('#place_order');
           if (btn) btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
-        // await new Promise(r => setTimeout(r, 1000));
-
-        // const [response] = await Promise.all([
-        //   page.waitForNavigation({ waitUntil: 'networkidle2', timeout: config.timeout }).catch(() => null),
-        //   page.click('#place_order'),
-        // ]);
 
         page.click('#place_order');
         if (testCase.expectResults) {
@@ -104,25 +92,9 @@ describe('Order Functionality', () => {
           } else {
             console.log(`❌ FAILED: cần thông báo lỗi: ${testCase.expectedError}`);
             // expect(currentUrl).to.equal(config.orderUrl);
-            expect(true).to.be.false; 
+            expect(isErrorVisible).to.be.true; 
           }
         }
-
-        // await new Promise(r => setTimeout(r, 5000));
-        // const currentUrl = page.url();
-        // if (testCase.expectResults) {
-        //   await waitForElement(page, '.is-well.col-inner.entry-content', { timeout: config.timeout });
-        //   expect(currentUrl).to.include(testCase.navigation);
-        // } else {
-        //   if(currentUrl.include('/order-received')) {
-        //     console.error(`❌ FAILED: cần thông báo lỗi: ${testCase.expectedError}`);
-        //     expect(currentUrl).not.to.include('/order-received');
-        //   } else {
-        //     await page.waitForSelector('.woocommerce-error', { timeout: config.timeout});
-        //     const errorText = await page.$eval('.woocommerce-error .message-container', el => el.textContent);
-        //     expect(errorText).to.include(testCase.expectedError);
-        //   }
-        // }
     });
   });
 });

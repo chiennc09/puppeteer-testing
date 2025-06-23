@@ -29,7 +29,7 @@ describe('Order Functionality', () => {
   });
 
   orderTestCases.forEach((testCase) => {
-    it(testCase.description, async () => {
+    it(`[${testCase.id}] ${testCase.description}`, async () => {
       try {
         const productUrl = `${config.baseUrl}/macbook-pro-m4-14-inch-2024-open-box/`;
         await page.goto(productUrl, { waitUntil: 'networkidle2', timeout: config.timeout });
