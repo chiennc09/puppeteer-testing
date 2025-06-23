@@ -10,7 +10,7 @@ const paymentTestCases = [
     phoneNumber: '0945634561',
     email: 'hathanh@example.com',
     paymentMethod: 'bacs',
-    expectResults: true
+    navigation: '/order-received',
   },
   {
     id: 'TT_02',
@@ -23,7 +23,7 @@ const paymentTestCases = [
     phoneNumber: '0945634561',
     email: 'hathanh@example.com',
     paymentMethod: 'cod',
-    expectResults: true
+    navigation: '/order-received',
   },
   {
     id: 'TT_03',
@@ -36,7 +36,7 @@ const paymentTestCases = [
     phoneNumber: '0945634561',
     email: 'hathanh@example.com',
     paymentMethod: 'payon',
-    expectResults: true
+    navigation: 'payon.vn',
   },
   {
     id: 'TT_04',
@@ -49,7 +49,7 @@ const paymentTestCases = [
     phoneNumber: '0945634561',
     email: 'hathanh@example.com',
     paymentMethod: 'payon_paynow',
-    expectResults: true
+    navigation: 'payon.vn',
   },
   {
     id: 'TT_05',
@@ -61,9 +61,7 @@ const paymentTestCases = [
     apartment: 'Số 42, ngõ 39',
     phoneNumber: '0945634561',
     email: 'hathanh@example.com',
-    paymentMethod: 'cod',
-    expectResults: true,
-    expectedTotal: '35.400.000'
+    coupon: true,
   },
   {
     id: 'TT_06',
@@ -75,11 +73,9 @@ const paymentTestCases = [
     apartment: 'Số 42, ngõ 39',
     phoneNumber: '0945634561',
     email: 'hathanh@example.com',
-    paymentMethod: 'cod',
-    expectResults: true,
+    coupon: true,
     removeCoupon: true,
-    expectedTotal: '35.500.000'
-    }
+  }
 
 ];
 

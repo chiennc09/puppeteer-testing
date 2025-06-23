@@ -10,14 +10,13 @@ before(async () => {
   expect = chai.expect;
 });
 
-describe('Order Functionality', () => {
+describe('Payment Functionality', () => {
   let browser;
   let page;
 
   before(async () => {
     browser = await puppeteer.launch({
       headless: false,
-      slowMo: 20,
       args: ['--start-maximized'],
     });
     page = await browser.newPage();
@@ -27,6 +26,13 @@ describe('Order Functionality', () => {
   after(async () => {
     await browser.close();
   });
+
+  const parsePrice = (priceText) => {
+    if (!priceText) return 0;
+    // Bỏ tất cả các ký tự không phải là số
+    const numericString = priceText.replace(/\D/g, '');
+    return parseInt(numericString, 10);
+  };
 
   orderTestCases.forEach((testCase) => {
     it(`[${testCase.id}] ${testCase.description}`, async () => {
@@ -74,70 +80,55 @@ describe('Order Functionality', () => {
             await page.click(methodSelector);
             await new Promise(r => setTimeout(r, 1000));
           }
-        }
 
-        if (testCase.removeCoupon) {
-          const couponSelector = '.woocommerce-remove-coupon';
-          try {
-            const hasCoupon = await page.$(couponSelector);
-            if (hasCoupon) {
-              await page.click(couponSelector);
-              await page.waitForFunction(() => {
-                const el = document.querySelector('.cart-discount');
-                return !el || el.offsetParent === null;
-              }, { timeout: 5000 });
-              console.log('🧾 Đã xóa mã giảm giá thành công!');
-            } else {
-              console.warn('⚠️ Không tìm thấy mã giảm giá để xóa.');
-            }
-          } catch (err) {
-            console.warn(`⚠️ Không thể xóa mã giảm giá: ${err.message}`);
+          await page.evaluate(() => {
+            const btn = document.querySelector('#place_order');
+            if (btn) btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+
+          if(testCase.paymentMethod != 'payon'){
+            const [response] = await Promise.all([
+              page.waitForNavigation({ waitUntil: 'networkidle2', timeout: config.timeout }).catch(() => null),
+              page.click('#place_order'),
+            ]);
+            const finalUrl = page.url();
+            expect(finalUrl).to.include(testCase.navigation);
+          }else{
+            page.click('#place_order')
+            const url = page.url();
+            console.log(url);
+            expect(url).to.include(testCase.navigation);
           }
+          
         }
 
-        const termsCheckbox = await page.$('#terms');
-        if (termsCheckbox) {
-          const isChecked = await page.$eval('#terms', el => el.checked);
-          if (!isChecked) await page.click('#terms');
+        if (testCase.coupon) {
+          await clickElement(page, '.woocommerce-remove-coupon');
+          await page.waitForFunction(() => {
+            const spinner = document.querySelector('.blockUI.blockOverlay');
+            return !spinner || spinner.style.display === 'none' || spinner.offsetParent === null;
+          }, { timeout: 10000 });
+           const subtotalSelector = 'tr.cart-subtotal .woocommerce-Price-amount';
+            const subtotalText = await page.$eval(subtotalSelector, el => el.textContent);
+            const subtotal = parsePrice(subtotalText);
+            console.log(`Đã lấy Tạm tính: ${subtotalText} -> ${subtotal}`);
+
+            // 2. Lấy Giảm giá
+            const discountSelector = 'tr.cart-discount .woocommerce-Price-amount';
+            const discountText = await page.$eval(discountSelector, el => el.textContent);
+            const discount = parsePrice(discountText);
+            console.log(`Đã lấy Giảm giá: ${discountText} -> ${discount}`);
+
+            // 3. Lấy Tổng
+            const totalSelector = 'tr.order-total .woocommerce-Price-amount';
+            const totalText = await page.$eval(totalSelector, el => el.textContent);
+            const total = parsePrice(totalText);
+            console.log(`Đã lấy Tổng cộng: ${totalText} -> ${total}`);
+            if(testCase.removeCoupon)
+              expect(subtotal).to.equal(total);
+            else
+              expect(subtotal-discount).to.equal(total);
         }
-
-        await page.evaluate(() => {
-          const btn = document.querySelector('#place_order');
-          if (btn) btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-
-        await new Promise(r => setTimeout(r, 1000));
-
-        const [response] = await Promise.all([
-          page.waitForNavigation({ waitUntil: 'networkidle2', timeout: config.timeout }).catch(() => null),
-          page.click('#place_order'),
-        ]);
-
-        const finalUrl = page.url();
-        const isSuccess = finalUrl.includes('/order-received');
-        const shouldPass = testCase.expectResults;
-
-        const pageText = await page.evaluate(() => document.body.innerText);
-        console.log(`🧾 Nội dung sau khi đặt hàng (${isSuccess ? 'CHUYỂN' : 'KHÔNG chuyển'} trang):\n`, pageText.slice(0, 800));
-
-        if (isSuccess && testCase.expectedTotal) {
-          const match = pageText.match(/Tổng cộng:\s*([\d.,]+)\s*₫/);
-          const actual = match ? match[1].replace(/[^\d]/g, '') : null;
-          const expected = testCase.expectedTotal.replace(/[^\d]/g, '');
-          if (actual !== expected) {
-            throw new Error(`⚠️ Sai tổng tiền: expected ${testCase.expectedTotal}, got ${match ? match[1] : 'N/A'}`);
-          } else {
-            console.log(`✅ Tổng tiền đúng: ${match[1]}`);
-          }
-        }
-
-        if (isSuccess === shouldPass) {
-          console.log(`✅ PASSED: ${testCase.description}`);
-        } else {
-          console.error(`❌ FAILED: ${testCase.description}`);
-          throw new Error(`Expected success: ${shouldPass}, but got: ${isSuccess}`);
-        }
-
       } catch (err) {
         console.error(`❌ FAILED: ${testCase.description}`, err.message || err);
         throw err;

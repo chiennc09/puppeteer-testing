@@ -112,7 +112,7 @@ describe('Search Functionality', () => {
   };
 
   searchTestCases.forEach((testCase) => {
-    it(`${testCase.description}`, async () => {
+    it(`[${testCase.id}] ${testCase.description}`, async () => {
         switch (testCase.category) {
             case 'direct_search':
                 await actions.performSearch(testCase.data.searchTerm, testCase.id);
